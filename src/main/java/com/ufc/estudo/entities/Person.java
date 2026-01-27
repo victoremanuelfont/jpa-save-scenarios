@@ -1,11 +1,19 @@
 package com.ufc.estudo.entities;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "tb_person")
 public class Person {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private Double salary;
 
+    @ManyToOne
+    @JoinColumn(name= "department_id")
     private Department department;
 
     public Person() {
