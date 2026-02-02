@@ -1,4 +1,4 @@
-package com.ufc.estudo.repository;
+package com.ufc.estudo.repositories;
 
 import com.ufc.estudo.entities.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
