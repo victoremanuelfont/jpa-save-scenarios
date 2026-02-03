@@ -3,9 +3,11 @@ package com.ufc.estudo.services;
 import com.ufc.estudo.dto.PersonDepartmentDTO;
 import com.ufc.estudo.entities.Department;
 import com.ufc.estudo.entities.Person;
+import com.ufc.estudo.repositories.DepartmentRepository;
 import com.ufc.estudo.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PersonService {
@@ -13,6 +15,10 @@ public class PersonService {
     @Autowired
     private PersonRepository repository;
 
+    @Autowired
+    private DepartmentRepository departmentRepository;
+
+    @Transactional
     public PersonDepartmentDTO insert(PersonDepartmentDTO dto){
         Person entity = new Person();
         copyDtoToEntity(dto,entity);
@@ -25,7 +31,11 @@ public class PersonService {
         entity.setName(dto.getName());
         entity.setSalary(dto.getSalary());
        Department dept = new Department();
-       dept.setId(dto.getDepartment().getId());
+
+       dept = departmentRepository.getReferenceById(dto.getDepartment().getId());
+
+
+       //dept.setId(dto.getDepartment().getId());
        entity.setDepartment(dept);
     }
 
