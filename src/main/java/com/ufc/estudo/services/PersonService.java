@@ -1,5 +1,6 @@
 package com.ufc.estudo.services;
 
+import com.ufc.estudo.dto.PersonDTO;
 import com.ufc.estudo.dto.PersonDepartmentDTO;
 import com.ufc.estudo.entities.Department;
 import com.ufc.estudo.entities.Person;
@@ -34,10 +35,31 @@ public class PersonService {
 
        dept = departmentRepository.getReferenceById(dto.getDepartment().getId());
 
-
        //dept.setId(dto.getDepartment().getId());
        entity.setDepartment(dept);
     }
+
+
+    @Transactional
+    public PersonDTO insert(PersonDTO dto){
+        Person entity = new Person();
+        copyDtoToEntity(dto,entity);
+        entity = repository.save(entity);
+        return new PersonDTO(entity);
+
+    }
+
+    private void copyDtoToEntity(PersonDTO dto, Person entity){
+        entity.setName(dto.getName());
+        entity.setSalary(dto.getSalary());
+        Department dept = new Department();
+        dept = departmentRepository.getReferenceById(dto.getDepartmentId());
+        dept.setId(dto.getDepartmentId());
+        entity.setDepartment(dept);
+    }
+
+
+
 
 
 }
