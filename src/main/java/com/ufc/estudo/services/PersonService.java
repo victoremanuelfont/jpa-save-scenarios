@@ -22,41 +22,30 @@ public class PersonService {
     @Transactional
     public PersonDepartmentDTO insert(PersonDepartmentDTO dto){
         Person entity = new Person();
-        copyDtoToEntity(dto,entity);
-        entity = repository.save(entity);
-        return new PersonDepartmentDTO(entity);
-
-    }
-
-    private void copyDtoToEntity(PersonDepartmentDTO dto,Person entity){
         entity.setName(dto.getName());
         entity.setSalary(dto.getSalary());
-       Department dept = new Department();
-
-       dept = departmentRepository.getReferenceById(dto.getDepartment().getId());
-
-       //dept.setId(dto.getDepartment().getId());
-       entity.setDepartment(dept);
+        Department dept = new Department();
+        dept = departmentRepository.getReferenceById(dto.getDepartment().getId());
+        entity.setDepartment(dept);
+        entity = repository.save(entity);
+        return new PersonDepartmentDTO(entity);
     }
 
 
     @Transactional
     public PersonDTO insert(PersonDTO dto){
         Person entity = new Person();
-        copyDtoToEntity(dto,entity);
-        entity = repository.save(entity);
-        return new PersonDTO(entity);
-
-    }
-
-    private void copyDtoToEntity(PersonDTO dto, Person entity){
         entity.setName(dto.getName());
         entity.setSalary(dto.getSalary());
         Department dept = new Department();
         dept = departmentRepository.getReferenceById(dto.getDepartmentId());
         dept.setId(dto.getDepartmentId());
         entity.setDepartment(dept);
+        entity = repository.save(entity);
+        return new PersonDTO(entity);
+
     }
+
 
 
 
