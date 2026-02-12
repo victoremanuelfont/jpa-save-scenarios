@@ -38,7 +38,7 @@ public class PersonService {
         entity.setName(dto.getName());
         entity.setSalary(dto.getSalary());
         Department dept = new Department();
-        dept = departmentRepository.getReferenceById(dto.getDepartmentId());
+        dept.setId(dto.getDepartmentId());
         entity.setDepartment(dept);
         entity = repository.save(entity);
         return new PersonDTO(entity);
