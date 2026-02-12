@@ -25,7 +25,7 @@ public class PersonService {
         entity.setName(dto.getName());
         entity.setSalary(dto.getSalary());
         Department dept = new Department();
-        dept.setId(dto.getDepartment().getId());
+        dept = departmentRepository.getReferenceById(dto.getDepartment().getId());
         entity.setDepartment(dept);
         entity = repository.save(entity);
         return new PersonDepartmentDTO(entity);
@@ -38,7 +38,7 @@ public class PersonService {
         entity.setName(dto.getName());
         entity.setSalary(dto.getSalary());
         Department dept = new Department();
-        dept.setId(dto.getDepartmentId());
+        dept = departmentRepository.getReferenceById(dto.getDepartmentId());
         entity.setDepartment(dept);
         entity = repository.save(entity);
         return new PersonDTO(entity);
